@@ -1,0 +1,20 @@
+label: Hero
+description: Title-only hero section
+icon: lock
+tags: [hero]
+picker_preview:
+  text: [Title Hero]
+  icon: [lock]
+preview:
+  text:
+    - key: title
+    - Title Hero
+  subtext: [Title Hero]
+  icon: [lock]
+value:
+  _uuid:
+  _name: privacy/hero
+  title: Terms & Condition
+_inputs:
+  title:
+    type: text

@@ -1,0 +1,71 @@
+{{- $rc := partial "rosey-content.html" page -}}
+<section class="privacy">
+  <div class="container">
+    <div class="row">
+      {{/* Receives the page's `privacy` array as `.` — re-rendered in the Visual Editor as data-component="legal/sections" */}}
+      {{/* Render under ENV_CLIENT even when empty, so the editor can add a first section */}}
+      {{ if or . site.Params.ENV_CLIENT }}
+      <div class="privacy-wrapper">
+        <div class="col-lg-7 mx-auto">
+          <div
+            data-bs-spy="scroll"
+            data-bs-target="#navbar-example2"
+            data-bs-offset="0"
+            class="scrollspy-example"
+            tabindex="0"
+            data-editable="array"
+            data-prop=""
+          >
+            {{ range $index,$data := . }} {{ if eq .key "descriptive" }}
+            <div class="privacy-items" id="item{{add $index 1}}" data-editable="array-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}>
+              <div class="card">
+                <h3 class="sub-title" data-editable="text" data-prop="heading"{{ if $rc }} data-rosey="heading"{{ end }}>{{.heading}}</h3>
+                <div data-editable="array" data-prop="texts">
+                {{ range .texts }}
+                <div class="card-body" data-editable="array-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}>
+                  <p class="card-text" data-editable="text" data-prop="value"{{ if $rc }} data-rosey="value"{{ end }}>{{.value}}</p>
+                </div>
+                {{ end }}
+                </div>
+              </div>
+            </div>
+            {{ else if eq .key "bulletpoints"}}
+            <div class="privacy-items" id="item{{add $index 1}}" data-editable="array-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}>
+              <div class="card">
+                <h3 class="sub-title" data-editable="text" data-prop="heading"{{ if $rc }} data-rosey="heading"{{ end }}>{{.heading}}</h3>
+                <div class="card-body">
+                  <ul data-editable="array" data-prop="texts">
+                    {{ range .texts }}
+                    <li data-editable="array-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}><editable-text data-prop="value"{{ if $rc }} data-rosey="value"{{ end }}>{{.value}}</editable-text></li>
+                    {{ end }}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {{ end }} {{ end }}
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <nav id="scrol-nav" class="navbar navbar-light privacy-nav">
+            <ul class="nav nav-pills">
+              {{ range $index,$data := . }} {{ if eq $index 0 }}
+              <li class="nav-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}>
+                <a class="nav-link active" href="#item{{add $index 1}}"
+                  ><span{{ if $rc }} data-rosey="heading"{{ end }}>{{.heading}}</span></a
+                >
+              </li>
+              {{else}}
+              <li class="nav-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}>
+                <a class="nav-link" href="#item{{add $index 1}}">
+                  <span{{ if $rc }} data-rosey="heading"{{ end }}>{{.heading}}</span></a
+                >
+              </li>
+              {{ end }} {{ end }}
+            </ul>
+          </nav>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

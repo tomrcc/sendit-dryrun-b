@@ -1,0 +1,8 @@
+# Section headings rendered as "<title> <span>title_suffix</span>" — the suffix is highlighted.
+title:
+  type: text
+  label: Heading
+title_suffix:
+  type: text
+  label: Heading (highlighted end)
+  comment: Shown after the heading in the accent colour

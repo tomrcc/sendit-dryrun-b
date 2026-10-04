@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Generate from the default language only: Hugo's /fr/ pages would add French source strings
+rm -rf _rosey_source
+cp -R public _rosey_source
+rm -rf _rosey_source/fr
+npx rosey generate --source _rosey_source
+rm -rf _rosey_source
+
+npx rosey-cloudcannon-connector write-locales --source rosey --dest public --locales fr
+npx rosey-cloudcannon-connector install-client --dest public
+
+rm -rf _untranslated_site
+mv ./public ./_untranslated_site
+npx rosey build --source _untranslated_site --dest public --default-language en --default-language-at-root --exclusions "\.(html?)$"
+
+node .cloudcannon/fix-rosey-pages.mjs --source _untranslated_site --dest public --locales fr --pager-segment page

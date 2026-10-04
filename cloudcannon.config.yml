@@ -1,0 +1,954 @@
+paths:
+  static: static
+  uploads: static/images
+
+markdown:
+  engine: commonmark
+  options:
+    gfm: true
+    linkify: false
+    table: true
+    strikethrough: true
+    subscript: false
+    superscript: false
+    heading_ids: false
+    breaks: false
+    xhtml: false
+    attributes: false
+    typographer: false
+    treat_indentation_as_code: true
+
+collections_config:
+  pages:
+    name: Pages
+    path: content
+    glob:
+      - '**/*.md'
+      - '!blog/**'
+    url: /[full_slug]/
+    icon: wysiwyg
+    disable_add_folder: true
+    _enabled_editors:
+      - visual
+      - data
+    schemas:
+      page_builder:
+        path: .cloudcannon/schemas/page-builder.md
+        name: Page builder page
+        icon: view_agenda
+        new_preview_url: /feature/
+      legal:
+        path: .cloudcannon/schemas/legal.md
+        name: Legal page
+        icon: gavel
+        new_preview_url: /privacy/
+    schema_key: _schema
+    add_options:
+      - name: Page builder page
+        schema: page_builder
+        icon: view_agenda
+      - name: Legal page
+        schema: legal
+        icon: gavel
+    _inputs:
+      $.title:
+        type: text
+        label: Page title
+        comment: Used in the browser tab and search results
+
+  blog:
+    name: Blog
+    path: content/blog
+    url: /blog/[full_slug]/
+    icon: event_available
+    disable_add_folder: true
+    _enabled_editors:
+      - visual
+      - content
+      - data
+    schema_key: _schema
+    schemas:
+      default:
+        path: .cloudcannon/schemas/post.md
+        name: Blog post
+        icon: article
+      blog_index:
+        path: .cloudcannon/schemas/blog-index.md
+        name: Blog listing page
+        icon: view_agenda
+    add_options:
+      - name: Blog post
+        schema: default
+        icon: article
+        editor: content
+    _inputs:
+      $.title:
+        type: text
+        label: Title
+    preview:
+      subtext:
+        - template: '{"Draft"|if=draft}'
+        - template: '{date|date_long}'
+      image:
+        - key: thumbImg.image_path
+      metadata:
+        - icon: person
+          text:
+            - key: author
+
+  pages_fr:
+    name: Pages (Français)
+    path: content_fr
+    glob:
+      - '**/*.md'
+      - '!blog/**'
+    url: /fr/[full_slug]/
+    icon: wysiwyg
+    disable_add_folder: true
+    _enabled_editors:
+      - visual
+      - data
+    schemas:
+      page_builder:
+        path: .cloudcannon/schemas/page-builder.md
+        name: Page builder page
+        icon: view_agenda
+        new_preview_url: /fr/feature/
+      legal:
+        path: .cloudcannon/schemas/legal.md
+        name: Legal page
+        icon: gavel
+        new_preview_url: /fr/privacy/
+    schema_key: _schema
+    add_options:
+      - name: Page builder page
+        schema: page_builder
+        icon: view_agenda
+      - name: Legal page
+        schema: legal
+        icon: gavel
+    _inputs:
+      $.title:
+        type: text
+        label: Page title
+        comment: Used in the browser tab and search results
+
+  blog_fr:
+    name: Blog (Français)
+    path: content_fr/blog
+    url: /fr/blog/[full_slug]/
+    icon: event_available
+    disable_add_folder: true
+    _enabled_editors:
+      - visual
+      - content
+      - data
+    schema_key: _schema
+    schemas:
+      default:
+        path: .cloudcannon/schemas/post.md
+        name: Blog post
+        icon: article
+      blog_index:
+        path: .cloudcannon/schemas/blog-index.md
+        name: Blog listing page
+        icon: view_agenda
+    add_options:
+      - name: Blog post
+        schema: default
+        icon: article
+        editor: content
+    _inputs:
+      $.title:
+        type: text
+        label: Title
+    preview:
+      subtext:
+        - template: '{"Draft"|if=draft}'
+        - template: '{date|date_long}'
+      image:
+        - key: thumbImg.image_path
+      metadata:
+        - icon: person
+          text:
+            - key: author
+
+  data:
+    name: Site data
+    path: data
+    glob:
+      - '*.yaml'
+    disable_url: true
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+    icon: settings
+    _enabled_editors:
+      - data
+
+  locales:
+    path: rosey/locales
+    name: Locales
+    icon: translate
+    disable_add: true
+    disable_add_folder: true
+    disable_file_actions: true
+    _inputs:
+      value:
+        type: html
+        label: Translation
+        cascade: true
+      original:
+        hidden: true
+        cascade: true
+      _base_original:
+        disabled: true
+        hidden: false
+        label: Original Text
+        cascade: true
+collection_groups:
+  - heading: Pages
+    collections:
+      - pages
+      - blog
+  - heading: Français
+    collections:
+      - pages_fr
+      - blog_fr
+  - heading: Site
+    collections:
+      - data
+      - locales
+
+data_config:
+  blog-tags:
+    path: data/blog-tags.yaml
+  nav:
+    path: data/nav.yaml
+  footer:
+    path: data/footer.yaml
+  blog-post:
+    path: data/blog-post.yaml
+
+  locales_fr:
+    path: rosey/locales/fr.json
+file_config:
+  - glob: data/nav.yaml
+    _inputs:
+      $:
+        type: object
+        label: Navigation
+        options:
+          preview:
+            icon: menu
+      logo:
+        type: image
+        label: Logo
+      items:
+        type: array
+        label: Menu items
+        options:
+          structures: _structures.nav_items
+      enable_nav_btn:
+        type: switch
+        label: Show navigation button
+      nav_btn:
+        type: object
+        label: Navigation button
+        hidden: '!enable_nav_btn'
+        options:
+          preview:
+            icon: ads_click
+      nav_btn.link:
+        type: url
+        label: Link
+      nav_btn.text:
+        type: text
+        label: Text
+  - glob: data/footer.yaml
+    _inputs:
+      $:
+        type: object
+        label: Footer
+        options:
+          preview:
+            icon: web
+      logo:
+        type: image
+        label: Logo
+      logo_url:
+        type: url
+        label: Logo link
+        comment: Link for the logo in the top left of the footer
+      copyright:
+        type: text
+        comment: Automatically prefixed with "© Copyright" and the current year
+      social:
+        type: array
+        label: Social links
+        options:
+          structures: _structures.social_links
+      sections:
+        type: array
+        label: Link columns
+        options:
+          structures: _structures.footer_sections
+  - glob: data/blog-post.yaml
+    _inputs:
+      $:
+        type: object
+        label: Blog post layout
+        options:
+          preview:
+            icon: article
+      recent_heading:
+        type: text
+        label: Recent posts heading
+        comment: Shown above the three recent posts at the bottom of every blog post
+  - glob: data/meta.yaml
+    _inputs:
+      $:
+        type: object
+        label: Site SEO
+        options:
+          preview:
+            icon: public
+      BaseURL:
+        type: url
+        label: Site URL
+        comment: Used to build canonical links
+      site_title:
+        type: text
+      description:
+        type: textarea
+        comment: Default meta description for pages that don't set their own
+      favicon_icon:
+        type: image
+        comment: For the shortcut icon meta tag
+      favicon_image:
+        type: image
+        comment: For the icon meta tag
+      twitter_image:
+        type: image
+      twitter_site:
+        type: text
+        label: Twitter username
+      image:
+        type: image
+        label: Default share image
+  - glob: data/blog-tags.yaml
+    _inputs:
+      $:
+        type: array
+        label: Blog categories
+        comment: The categories editors can pick on blog posts
+      $[*]:
+        type: text
+
+_editables:
+  content:
+    blockquote: true
+    bold: true
+    bulletedlist: true
+    code: true
+    format: p h2 h3 h4
+    image: true
+    italic: true
+    link: true
+    numberedlist: true
+    removeformat: true
+    strike: true
+    table: true
+    undo: true
+    redo: true
+  text:
+    bold: true
+    italic: true
+    link: true
+    removeformat: true
+    undo: true
+    redo: true
+
+_inputs:
+  # Stable Rosey namespace for array items (data-rosey-ns)
+  _uuid:
+    type: text
+    hidden: true
+    instance_value: UUID
+
+  # Routing / developer keys
+  _schema:
+    hidden: true
+  _name:
+    hidden: true
+  layout:
+    hidden: true
+  type:
+    hidden: true
+  aliases:
+    hidden: true
+  url:
+    hidden: true
+  build:
+    hidden: true
+  cascade:
+    hidden: true
+
+  content_blocks:
+    type: array
+    label: Page sections
+    options:
+      structures: _structures.content_blocks
+
+  # Blog posts
+  date:
+    type: datetime
+  author:
+    type: text
+  draft:
+    type: switch
+    comment: Draft posts are not built, so they can't be opened in the Visual Editor
+  categories:
+    type: multiselect
+    options:
+      values: data.blog-tags
+  thumbImg:
+    type: object
+    label: Thumbnail image
+    options:
+      preview:
+        icon: image
+  thumbImg.image_path:
+    type: image
+    label: Thumbnail image
+    options:
+      width: 500
+      height: 413
+      resize_style: crop
+  featuredImg:
+    type: object
+    label: Featured image
+    options:
+      preview:
+        icon: image
+  featuredImg.image_path:
+    type: image
+    label: Featured image
+    options:
+      width: 1296
+      resize_style: crop
+
+  # Page-level description (blog listing intro), rendered as plain text
+  description:
+    type: textarea
+
+  # SEO
+  seo:
+    type: object
+    label: SEO
+    options:
+      preview:
+        icon: travel_explore
+  seo.page_description:
+    type: textarea
+    label: Page description
+    comment: If empty, defaults to the description set in the Site SEO data file
+  seo.canonical_url:
+    type: text
+    label: Canonical URL
+    comment: If empty, defaults to the URL of the page
+  seo.featured_image:
+    type: image
+    label: Share image
+    comment: If empty, defaults to the image set in the Site SEO data file
+  seo.author_twitter_handle:
+    type: text
+    label: Author Twitter handle
+    comment: Defaults to the twitter site value set in the Site SEO data file
+  seo.no_index:
+    type: checkbox
+    label: Hide from search engines
+    comment: When selected this adds the noindex robots meta tag
+  seo.open_graph_type:
+    type: select
+    label: Open Graph type
+    options:
+      allow_empty: true
+      values:
+        - website
+        - article
+        - profile
+
+  # Legal page
+  hero:
+    type: object
+    label: Hero
+    options:
+      preview:
+        icon: title
+  hero.title:
+    type: text
+    label: Hero title
+  privacy:
+    type: array
+    label: Sections
+    options:
+      structures: _structures.legal_sections
+
+_structures:
+  content_blocks:
+    id_key: _name
+    style: modal
+    values_from_glob:
+      - /.cloudcannon/structures/content_blocks/**/*.cloudcannon.structure-value.yml
+
+  counter_numbers:
+    style: modal
+    values:
+      - label: Number
+        icon: counter_1
+        preview:
+          text:
+            - template: '{prefix}{number}{suffix}'
+            - Number
+          subtext:
+            - key: text
+          icon: [counter_1]
+        value:
+          _uuid:
+          prefix: ''
+          number: '100'
+          suffix: ''
+          text:
+        _inputs:
+          number:
+            type: text
+            comment: The figure that counts up. Digits only
+          prefix:
+            type: text
+            comment: Shown before the number, e.g. $
+          suffix:
+            type: text
+            comment: Shown after the number, e.g. m or +
+          text:
+            type: text
+            label: Label
+
+  hero_images:
+    style: modal
+    values:
+      - label: Image
+        icon: image
+        preview:
+          text:
+            - key: placer
+            - Image
+          icon: [image]
+          image:
+            - key: image_path
+        value:
+          image_path:
+          placer: front_bottom
+        _inputs:
+          image_path:
+            type: image
+            label: Image
+            options:
+              width: 450
+              height: 450
+              resize_style: crop
+          placer:
+            type: select
+            label: Position
+            options:
+              value_key: id
+              preview:
+                text:
+                  - key: name
+              values:
+                - name: Front, bottom
+                  id: front_bottom
+                - name: Back, top right
+                  id: back_top_right
+                - name: Back, top left
+                  id: back_top_left
+
+  team_members:
+    style: modal
+    values:
+      - label: Team member
+        icon: person
+        preview:
+          text:
+            - key: name
+            - Team member
+          subtext:
+            - key: designation
+          icon: [person]
+          image:
+            - key: image_path
+        value:
+          _uuid:
+          name:
+          designation:
+          image_path:
+        _inputs:
+          name:
+            type: text
+          designation:
+            type: text
+            label: Role
+          image_path:
+            type: image
+            label: Photo
+            options:
+              width: 516
+              height: 579
+              resize_style: crop
+
+  testimonials:
+    style: modal
+    values:
+      - label: Testimonial
+        icon: format_quote
+        preview:
+          text:
+            - key: author
+            - Testimonial
+          subtext:
+            - key: designation
+          icon: [format_quote]
+          image:
+            - key: image_path
+        value:
+          _uuid:
+          image_path:
+          author:
+          designation:
+          message:
+        _inputs:
+          image_path:
+            type: image
+            label: Logo
+            options:
+              width: 80
+              height: 80
+              resize_style: crop
+          author:
+            type: text
+          designation:
+            type: text
+            label: Role and company
+          message:
+            type: textarea
+            label: Quote
+
+  faq_items:
+    style: modal
+    values:
+      - label: Question
+        icon: help
+        preview:
+          text:
+            - key: title
+            - Question
+          icon: [help]
+        value:
+          _uuid:
+          title:
+          description:
+        _inputs:
+          title:
+            type: text
+            label: Question
+          description:
+            type: markdown
+            label: Answer
+            options:
+              bold: true
+              italic: true
+              link: true
+              removeformat: true
+              undo: true
+              redo: true
+
+  pricing_tiers:
+    style: modal
+    values:
+      - label: Pricing tier
+        icon: payments
+        preview:
+          text:
+            - key: tier
+            - Pricing tier
+          subtext:
+            - template: '${price}'
+          icon: [payments]
+        value:
+          _uuid:
+          tier:
+          description:
+          price: '0'
+          hasDiscount: false
+          discountPrice: '0'
+          isActive: false
+          feature: []
+          btn:
+            link: /#
+            text: Try This Free
+        _inputs_from_glob:
+          - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+          - /.cloudcannon/inputs/button.cloudcannon.inputs.yml
+        _inputs:
+          tier:
+            type: text
+            label: Tier name
+          price:
+            type: text
+            label: Price
+            comment: Digits only — the $ is added automatically
+          hasDiscount:
+            type: switch
+            label: Show a discounted price
+          discountPrice:
+            type: text
+            label: Discounted price
+            comment: Shown instead of the price, with the price struck through
+            hidden: '!hasDiscount'
+          isActive:
+            type: switch
+            label: Highlight this tier
+          feature:
+            type: array
+            label: Features
+            options:
+              structures: _structures.pricing_features
+
+  pricing_features:
+    style: modal
+    values:
+      - label: Feature
+        icon: check_box
+        preview:
+          text:
+            - key: item
+            - Feature
+          icon: [check_box]
+        value:
+          _uuid:
+          item:
+          isActive: true
+        _inputs:
+          item:
+            type: text
+            label: Feature
+          isActive:
+            type: switch
+            label: Included
+            comment: Off shows the feature greyed out
+
+  legal_sections:
+    style: modal
+    values:
+      - label: Paragraphs
+        icon: description
+        preview:
+          text:
+            - key: heading
+            - Paragraphs
+          subtext: [Paragraphs]
+          icon: [description]
+        value:
+          _uuid:
+          key: descriptive
+          heading:
+          texts: []
+        _inputs:
+          key:
+            hidden: true
+          heading:
+            type: text
+          texts:
+            type: array
+            label: Paragraphs
+            options:
+              structures: _structures.legal_texts
+      - label: Bullet points
+        icon: format_list_bulleted
+        preview:
+          text:
+            - key: heading
+            - Bullet points
+          subtext: [Bullet points]
+          icon: [format_list_bulleted]
+        value:
+          _uuid:
+          key: bulletpoints
+          heading:
+          texts: []
+        _inputs:
+          key:
+            hidden: true
+          heading:
+            type: text
+          texts:
+            type: array
+            label: Bullet points
+            options:
+              structures: _structures.legal_texts
+    id_key: key
+
+  legal_texts:
+    style: modal
+    values:
+      - label: Text
+        icon: short_text
+        preview:
+          text:
+            - key: value
+            - Text
+          icon: [short_text]
+        value:
+          _uuid:
+          value:
+        _inputs:
+          value:
+            type: textarea
+            label: Text
+
+  nav_items:
+    style: modal
+    values:
+      - label: Menu item
+        icon: link
+        preview:
+          text:
+            - key: text
+            - Menu item
+          subtext:
+            - key: link
+          icon: [link]
+        value:
+          link:
+          text:
+          enable_dropdown: false
+          dropdown: []
+        _inputs:
+          link:
+            type: url
+          text:
+            type: text
+          enable_dropdown:
+            type: switch
+            label: Show a dropdown
+          dropdown:
+            type: array
+            label: Dropdown items
+            hidden: '!enable_dropdown'
+            options:
+              structures: _structures.nav_dropdown
+
+  nav_dropdown:
+    style: modal
+    values:
+      - label: Dropdown item
+        icon: link
+        preview:
+          text:
+            - key: dropdown_text
+            - Dropdown item
+          subtext:
+            - key: dropdown_link
+          icon: [link]
+        value:
+          dropdown_text:
+          dropdown_link:
+        _inputs:
+          dropdown_text:
+            type: text
+            label: Name
+          dropdown_link:
+            type: url
+            label: Link
+
+  social_links:
+    style: modal
+    values:
+      - label: Social link
+        icon: share
+        preview:
+          text:
+            - key: icon
+            - Social link
+          subtext:
+            - key: link
+          icon: [share]
+        value:
+          link:
+          icon:
+        _inputs:
+          link:
+            type: url
+          icon:
+            type: select
+            options:
+              allow_create: true
+              value_key: id
+              preview:
+                text:
+                  - key: name
+              values:
+                - name: Facebook
+                  id: ph-facebook-logo
+                - name: Instagram
+                  id: ph-instagram-logo
+                - name: Twitter
+                  id: ph-twitter-logo
+                - name: GitHub
+                  id: ph-github-logo
+                - name: YouTube
+                  id: ph-youtube-logo
+                - name: LinkedIn
+                  id: ph-linkedin-logo
+
+  footer_sections:
+    style: modal
+    values:
+      - label: Link column
+        icon: view_agenda
+        preview:
+          text:
+            - key: title
+            - Link column
+          icon: [view_agenda]
+        value:
+          title:
+          links: []
+        _inputs:
+          title:
+            type: text
+          links:
+            type: array
+            options:
+              structures: _structures.footer_links
+
+  footer_links:
+    style: modal
+    values:
+      - label: Link
+        icon: link
+        preview:
+          text:
+            - key: text
+            - Link
+          subtext:
+            - key: link
+          icon: [link]
+        value:
+          link:
+          text:
+        _inputs:
+          link:
+            type: url
+          text:
+            type: text

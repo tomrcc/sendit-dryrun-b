@@ -1,0 +1,120 @@
+{{- $rc := partial "rosey-content.html" page -}}
+<section{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }} class="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 me-auto order-2 order-lg-1">
+        <div class="contact-form-Information">
+          <div class="address">
+            {{ with .address }}
+            <h3 data-editable="text" data-prop="address.heading"{{ if $rc }} data-rosey="address_heading"{{ end }}>{{.heading}}</h3>
+            <p data-editable="text" data-prop="address.address">{{.address}}</p>
+            {{ end }}
+            <div class="item mb-4">
+              {{ with .phone }}
+              <h3 data-editable="text" data-prop="phone.heading"{{ if $rc }} data-rosey="phone_heading"{{ end }}>{{.heading}}</h3>
+              <a href="tel:{{.cell}}"
+                ><editable-text data-prop="phone.cell">{{.cell}}</editable-text>
+                <span>
+                  <img
+                    src="/images/contact/call-add.svg"
+                    alt="call-add"
+                    loading="lazy"
+                  />
+                </span>
+              </a>
+              {{ end }}
+            </div>
+            <div class="item">
+              {{ with .email }}
+              <h3 data-editable="text" data-prop="email.heading"{{ if $rc }} data-rosey="email_heading"{{ end }}>{{.heading}}</h3>
+              <a href="mailto:{{.email}}"
+                ><editable-text data-prop="email.email">{{.email}}</editable-text>
+                <span>
+                  <img
+                    src="/images/contact/directbox-send.svg"
+                    alt="send-box"
+                    loading="lazy"
+                  />
+                </span>
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2">
+        <div class="contact-form">
+          {{ with .form }}
+          <form method="post">
+            <h3 data-editable="text" data-prop="form.heading"{{ if $rc }} data-rosey="form_heading"{{ end }}>{{.heading}}</h3>
+            {{ with .fullName }}
+            <div class="col-md-12">
+              <label for="Name" class="label" data-editable="text" data-prop="form.fullName.heading"{{ if $rc }} data-rosey="form_fullName_heading"{{ end }}>{{.heading}}</label>
+              <input
+                type="text"
+                class="form-control"
+                id="Name"
+                name="name"
+                placeholder="{{.placeHolder}}"
+                required=""
+              />
+            </div>
+            {{ end }} {{ with .phoneNumber }}
+            <div class="col-md-12">
+              <label for="Name" class="label" data-editable="text" data-prop="form.phoneNumber.heading"{{ if $rc }} data-rosey="form_phoneNumber_heading"{{ end }}>{{.heading}}</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="Name"
+                name="phone-number"
+                placeholder="{{.placeHolder}}"
+                required=""
+              />
+            </div>
+            {{ end }} {{ with .email }}
+            <div class="col-md-12">
+              <label for="email" class="label" data-editable="text" data-prop="form.email.heading"{{ if $rc }} data-rosey="form_email_heading"{{ end }}>{{.heading}}</label>
+              <input
+                type="email"
+                class="form-control mb-6"
+                id="email"
+                name="_replyto"
+                placeholder="{{.placeHolder}}"
+                required=""
+              />
+            </div>
+            {{ end }} {{ with .message }}
+            <div class="col-12">
+              <label for="email" class="label" data-editable="text" data-prop="form.message.heading"{{ if $rc }} data-rosey="form_message_heading"{{ end }}>{{.heading}}</label>
+              <textarea
+                class="form-control mb-4"
+                id="floatingTextarea2"
+                name="message"
+                placeholder="{{.placeHolder}}"
+                rows="8"
+                spellcheck="false"
+              ></textarea>
+            </div>
+            {{ end }}
+            <input type="text" name="_gotcha" style="display: none" />
+            {{ with .submitBtn }}
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-lg mt-7">
+                <span class="position-relative" data-editable="text" data-prop="form.submitBtn.text"{{ if $rc }} data-rosey="form_submitBtn_text"{{ end }}>{{.text}}</span>
+              </button>
+            </div>
+            {{ end }}
+          </form>
+          {{ end }}
+          <div class="effect">
+            <img
+              src="/images/contact/effects.png"
+              alt="effects"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

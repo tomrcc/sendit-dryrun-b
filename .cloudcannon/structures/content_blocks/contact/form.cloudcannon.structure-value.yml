@@ -1,0 +1,108 @@
+label: Form
+description: Contact details and form section
+icon: check_box
+tags: []
+picker_preview:
+  text: [Contact Form]
+  icon: [check_box]
+preview:
+  text:
+    - key: form.heading
+    - Contact Form
+  subtext: [Contact Form]
+  icon: [check_box]
+value:
+  _uuid:
+  _name: contact/form
+  address:
+    heading: Office Address
+    address: 123 Franklin St, Los Angeles, CA 90015
+  phone:
+    heading: Phone
+    cell: (123) 345 - 1234
+  email:
+    heading: Email
+    email: hello@example.com
+  form:
+    heading: Say Hello
+    fullName:
+      heading: Full Name
+      placeHolder: Enter First Name
+    phoneNumber:
+      heading: Phone number
+      placeHolder: Enter Phone Number
+    email:
+      heading: Email Address
+      placeHolder: Enter Email Address
+    message:
+      heading: Your Messages
+      placeHolder: Any Message
+    submitBtn:
+      text: Send message
+_inputs:
+  address:
+    type: object
+    label: Address
+    options:
+      preview:
+        icon: location_on
+  phone:
+    type: object
+    label: Phone
+    options:
+      preview:
+        icon: call
+  phone.cell:
+    type: text
+    label: Phone number
+  email:
+    type: object
+    label: Email
+    options:
+      preview:
+        icon: mail
+  email.email:
+    type: email
+    label: Email address
+  form:
+    type: object
+    label: Form
+    options:
+      preview:
+        icon: contact_mail
+  form.fullName:
+    type: object
+    label: Name field
+    options:
+      preview:
+        icon: short_text
+  form.phoneNumber:
+    type: object
+    label: Phone field
+    options:
+      preview:
+        icon: short_text
+  form.email:
+    type: object
+    label: Email field
+    options:
+      preview:
+        icon: short_text
+  form.message:
+    type: object
+    label: Message field
+    options:
+      preview:
+        icon: short_text
+  form.submitBtn:
+    type: object
+    label: Submit button
+    options:
+      preview:
+        icon: ads_click
+  placeHolder:
+    type: text
+    label: Placeholder
+  heading:
+    type: text
+    label: Heading

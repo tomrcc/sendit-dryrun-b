@@ -1,0 +1,9 @@
+{{ define "main" }}
+  <div data-editable="array" data-prop="content_blocks" data-component-key="_name">
+    {{ range .Params.content_blocks }}
+      <div data-editable="array-item" data-id="{{ ._name }}" data-component="{{ ._name }}">
+        {{ partial ._name . }}
+      </div>
+    {{ end }}
+  </div>
+{{ end }}

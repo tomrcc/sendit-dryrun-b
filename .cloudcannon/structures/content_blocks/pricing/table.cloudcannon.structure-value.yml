@@ -1,0 +1,33 @@
+label: Pricing Table
+description: Pricing table section
+icon: table_rows
+tags: []
+picker_preview:
+  text: [Pricing Table]
+  icon: [table_rows]
+preview:
+  text:
+    - Pricing Table
+  subtext: [Pricing Table]
+  icon: [table_rows]
+value:
+  _uuid:
+  _name: pricing/table
+  pricing_tier:
+    - _uuid:
+      tier: Free
+      description: Everything you need to get started.
+      price: '0'
+      hasDiscount: false
+      discountPrice: '0'
+      isActive: false
+      feature: []
+      btn:
+        link: /#
+        text: Try This Free
+_inputs:
+  pricing_tier:
+    type: array
+    label: Pricing tiers
+    options:
+      structures: _structures.pricing_tiers

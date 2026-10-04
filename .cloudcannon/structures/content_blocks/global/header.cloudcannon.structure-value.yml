@@ -1,0 +1,27 @@
+label: Header
+description: Header section
+icon: task
+tags: []
+picker_preview:
+  text: [Header]
+  icon: [task]
+preview:
+  text:
+    - template: '{title} {title_suffix}'
+    - Header
+  subtext: [Header]
+  icon: [task]
+value:
+  _uuid:
+  _name: global/header
+  title: Sendit
+  title_suffix: Features
+  description: Sendit is the most complete solution to create beautiful email designs, manage mails and send them out at the best price.
+  no_top_pad: false
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+  - /.cloudcannon/inputs/heading.cloudcannon.inputs.yml
+_inputs:
+  no_top_pad:
+    type: switch
+    label: Remove top padding

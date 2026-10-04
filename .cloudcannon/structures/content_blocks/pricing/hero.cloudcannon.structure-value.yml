@@ -1,0 +1,23 @@
+label: Pricing Hero
+description: Pricing Hero section
+icon: credit_card
+tags: [hero]
+picker_preview:
+  text: [Pricing Hero]
+  icon: [credit_card]
+preview:
+  text:
+    - key: title
+    - Pricing Hero
+  subtext: [Pricing Hero]
+  icon: [credit_card]
+value:
+  _uuid:
+  _name: pricing/hero
+  title: A plan for everyone
+  description: Sendit is easy to get started and we have a pricing plan for businesses of all sizes.
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+_inputs:
+  title:
+    type: text

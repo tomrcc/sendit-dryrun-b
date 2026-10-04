@@ -1,0 +1,123 @@
+{{/* Receives data/nav.yaml as `.` — also re-rendered in the Visual Editor as data-component="navbar" */}}
+{{ $current := page }}
+{{ with . }}
+
+<header data-rosey-ns="nav">
+    <nav class="navbar navbar-expand-lg position-fixed w-100 zindex-dropdown" id="mainnavigationBar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{{ .logo }}" alt="Nav-Logo" data-editable="image" data-prop-src="logo" />
+            </a>
+            <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            data-rosey-attrs-explicit='{"aria-label":"toggle_navigation"}'
+         >
+            <span class="navbar-toggler-default">
+               <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+               >
+                  <line
+                     x1="3.5"
+                     y1="5.5"
+                     x2="21.5"
+                     y2="5.5"
+                     stroke="#292D32"
+                     stroke-width="3"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                  />
+                  <line
+                     x1="4.5"
+                     y1="12.5"
+                     x2="21.5"
+                     y2="12.5"
+                     stroke="#292D32"
+                     stroke-width="3"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                  />
+                  <line
+                     x1="11.5"
+                     y1="19.5"
+                     x2="21.5"
+                     y2="19.5"
+                     stroke="#292D32"
+                     stroke-width="3"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                  />
+               </svg>
+            </span>
+            <span class="navbar-toggler-toggled">
+               <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+               >
+                  <path
+                     d="M21.5 6.5L6.5 21.5"
+                     stroke="#404152"
+                     stroke-width="3"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                  />
+                  <path
+                     d="M21.5 21.5L6.5 6.5"
+                     stroke="#404152"
+                     stroke-width="3"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                  />
+               </svg>
+            </span>
+         </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-20 mb-lg-0" data-editable="array" data-prop="items">
+                    {{ range .items }}
+                        {{ $url := .link }}
+                        <li class="nav-item dropdown" data-editable="array-item">
+                            {{ if and .enable_dropdown .dropdown }}
+                                <a class="nav-link dropdown-link {{ if eq $current.Permalink $url }}active{{ end }}" href="{{ .link }}" id="navbarDropdown" role="button" aria-expanded="false"><editable-text data-prop="text" data-rosey="{{ .text | urlize }}">{{ .text }}</editable-text></a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" data-editable="array" data-prop="dropdown">
+                                    {{ range .dropdown }}
+                                        <li data-editable="array-item">
+                                            <a class="dropdown-item" href="{{ .dropdown_link }}"><editable-text data-prop="dropdown_text" data-rosey="{{ .dropdown_text | urlize }}">{{ .dropdown_text }}</editable-text></a>
+                                        </li>
+                                    {{ end }}
+                                </ul>
+                            {{ else }}
+                                <a class="nav-link {{ if eq $current.Permalink $url }}active{{ end }}" href="{{ .link }}"><editable-text data-prop="text" data-rosey="{{ .text | urlize }}">{{ .text }}</editable-text></a>
+                            {{ end }}
+                        </li>
+                    {{ end }}
+                </ul>
+            </div> 
+            {{/* Language switcher. Hidden in the editor by the script in baseof, and not
+                 rendered by the editor's in-browser Hugo, which re-renders this partial. */}}
+            {{ if not site.Params.ENV_CLIENT }}{{ partial "locale-picker.html" page }}{{ end }}
+            {{ if .enable_nav_btn }}
+                <div class="d-none d-lg-block">
+                    <div class="nav-item">
+                    {{ with .nav_btn }}
+                    <a href="{{.link}}" class="btn btn-sm btn-links"><editable-text data-prop="nav_btn.text" data-rosey="{{ .text | urlize }}">{{.text}}</editable-text></a>
+                    {{ end }}
+                    </div>
+                </div> 
+            {{ end }}
+        </div>
+    </nav>
+</header>
+
+{{ end }}

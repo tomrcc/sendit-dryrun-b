@@ -1,0 +1,39 @@
+label: Counter
+description: Counter section
+icon: functions
+tags: []
+picker_preview:
+  text: [Counter]
+  icon: [functions]
+preview:
+  text:
+    - template: '{title} {title_suffix}'
+    - Counter
+  subtext: [Counter]
+  icon: [functions]
+value:
+  _uuid:
+  _name: global/counter
+  title: 'Scale your '
+  title_suffix: Business
+  description: We have an extensive library of pre-written sales emails, proven marketing templates, and more to get you started on your next project.
+  alternateStyle: false
+  numbers:
+    - _uuid:
+      number: '200'
+      suffix: m
+      prefix: $
+      text: Venture capital raised
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+  - /.cloudcannon/inputs/heading.cloudcannon.inputs.yml
+_inputs:
+  alternateStyle:
+    type: switch
+    label: Alternate style
+    comment: Bordered layout with extra bottom padding
+  numbers:
+    type: array
+    label: Numbers
+    options:
+      structures: _structures.counter_numbers

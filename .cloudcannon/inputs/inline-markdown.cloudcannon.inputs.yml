@@ -1,0 +1,10 @@
+# Short markdown fields rendered with `markdownify` inside a <p>. Inline formatting only.
+description:
+  type: markdown
+  options:
+    bold: true
+    italic: true
+    link: true
+    removeformat: true
+    undo: true
+    redo: true

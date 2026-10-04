@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{{- $root := .Path | strings.TrimPrefix "/" | default "index" -}}
+{{- $roseyContent := partial "rosey-content.html" . -}}
+<html lang="{{ site.Language.Lang }}">
+  <head>
+    
+    {{ partial "meta.html" (dict "page" . "root" $root "roseyContent" $roseyContent) }}
+    {{ partial "editable-regions" . }}
+    
+    <link href="/vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="/vendor/phosphor-icons/css/phosphor.css" rel="stylesheet" />
+    <link href="/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" />
+    
+    {{ $style := resources.Get "/scss/theme.scss" | css.Sass |
+    resources.Minify | resources.Fingerprint }}
+    <link rel="stylesheet" href="{{$style.Permalink}}" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon" />
+    <script src="/vendor/jQuery/jquery.min.js" defer></script>
+    <script src="/vendor/bootstrap/bootstrap.bundle.min.js" defer></script>
+    <script src="/vendor/counter-up/countup.js" defer></script>
+    <script src="/vendor/magnific-popup/magnific-popup.min.js" defer></script>
+    <script src="/js/script.js" defer></script>
+    <title{{ if $roseyContent }} data-rosey="{{ $root }}:page_title"{{ end }}>{{print .Page.Title " | " .Site.Title}}</title>
+  </head>
+  <body>
+    {{- $locales := slice -}}
+    {{- range site.Params.locales }}{{ if ne .code hugo.Sites.Default.Language.Lang }}{{ $locales = $locales | append .code }}{{ end }}{{ end }}
+    <div data-rcc{{ if not $roseyContent }} data-rcc-exclude="{{ delimit $locales "," }}"{{ end }}>
+    <editable-component data-component="navbar" data-prop="@data[nav]">{{ partial "navbar.html" hugo.Data.nav }}</editable-component>
+    <main data-rosey-root="{{ $root }}">{{ block "main" . }} {{ end }}</main>
+    <editable-component data-component="footer" data-prop="@data[footer]">{{ partial "footer.html" hugo.Data.footer }}</editable-component>
+    </div>
+
+    <script>
+      if (window.inEditorMode) {
+        document.querySelectorAll("nav[aria-label='Language']").forEach(function (nav) {
+          nav.style.display = "none";
+        });
+      } else {
+        document.querySelectorAll("nav[aria-label='Language'] a").forEach(function (link) {
+          link.classList.toggle("active", link.pathname === window.location.pathname);
+        });
+      }
+    </script>
+    <script>
+      if (window?.inEditorMode) {
+        import("/_rcc/client.mjs").catch(console.error);
+      }
+    </script>
+  </body>
+</html>

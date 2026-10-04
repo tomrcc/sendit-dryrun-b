@@ -1,0 +1,7 @@
+{{- /* Category chips for a post card. Context: the post. One shared key per term
+       (data-rosey-root="categories"), label from one helper. */ -}}
+<div class="blog-post-tag" data-rosey-root="categories">
+  {{- range .Params.categories }}
+  <a href="{{ print ("categories/" | relURL) (urlize .) "/" }}" data-rosey="{{ urlize . }}">{{ partial "category-label.html" . }}</a>
+  {{- end }}
+</div>

@@ -1,0 +1,39 @@
+{{- $rc := partial "rosey-content.html" page -}}
+<section{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }} class="about-hero-two">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5 col-lg-10 mx-auto">
+        <div class="about-hero-two-content position-relative">
+          <h2 data-editable="text" data-prop="title"{{ if $rc }} data-rosey="title"{{ end }}>{{.title}}</h2>
+          <p class="mb-20 w-xxl-80" data-editable="text" data-type="text" data-prop="description"{{ if $rc }} data-rosey="description"{{ end }}>{{.description | markdownify}}</p>
+          <div class="">
+            {{with .link}}
+            <a href="{{.url}}" class="btn btn-primary btn-lg"> <editable-text data-prop="link.text"{{ if $rc }} data-rosey="link_text"{{ end }}>{{.text}}</editable-text> </a>
+            {{end}}
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-7 col-lg-12">
+        <div class="about-hero-two-banner">
+          <div data-editable="array" data-prop="hero_images">
+          {{ range .hero_images }}
+            <div data-editable="array-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }} class="rounded-box 
+              {{ if eq .placer "back_top_right" }}
+                image-one
+              {{ else if eq .placer "front_bottom" }}
+                image-two
+              {{ else if eq .placer "back_top_left" }}
+                image-three
+              {{ end }}">
+              <img src="{{.image_path}}" alt="aboutfeature" loading="lazy" data-editable="image" data-prop-src="image_path"/>
+            </div>
+          {{ end }}
+          </div>
+          <div class="pattern">
+            <img src="/images/about/patterns-two.png" alt="patterns" loading="lazy"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

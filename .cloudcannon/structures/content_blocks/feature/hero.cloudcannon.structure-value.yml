@@ -1,0 +1,37 @@
+label: Feature Hero
+description: Feature Hero section
+icon: contactless
+tags: [hero]
+picker_preview:
+  text: [Feature Hero]
+  icon: [contactless]
+preview:
+  text:
+    - key: title
+    - Feature Hero
+  subtext: [Feature Hero]
+  icon: [contactless]
+  image:
+    - key: image_path
+value:
+  _uuid:
+  _name: feature/hero
+  title: Run the best campaigns
+  description: Sendit will change the way you think about email and marketing automation..
+  btn:
+    link: /#
+    text: Try This Free
+  image_path: /images/feature/feature-hero.png
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+  - /.cloudcannon/inputs/button.cloudcannon.inputs.yml
+_inputs:
+  title:
+    type: text
+  image_path:
+    type: image
+    label: Image
+    options:
+      width: 696
+      height: 721
+      resize_style: crop

@@ -1,0 +1,13 @@
+{{- $rc := partial "rosey-content.html" page -}}
+<section{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }} class="feature pt-0 pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="section-header @@disply {{ with .no_top_pad }}no-top-pad{{ end }}">
+          <h2><editable-text data-prop="title"{{ if $rc }} data-rosey="title"{{ end }}>{{ .title }}</editable-text><span data-editable="text" data-prop="title_suffix"{{ if $rc }} data-rosey="title_suffix"{{ end }}>{{ .title_suffix }}</span></h2>
+          <p data-editable="text" data-type="text" data-prop="description"{{ if $rc }} data-rosey="description"{{ end }}>{{ .description | markdownify}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

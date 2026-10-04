@@ -1,0 +1,41 @@
+label: Feature
+description: Feature section
+icon: stars
+tags: []
+picker_preview:
+  text: [Feature]
+  icon: [stars]
+preview:
+  text:
+    - key: title
+    - Feature
+  subtext: [Feature]
+  icon: [stars]
+  image:
+    - key: image_path
+value:
+  _uuid:
+  _name: global/feature
+  image_path: /images/feature/feature-card-one.png
+  title: Simply click and send
+  description: Make your message stand out, thanks to the guided copywriting and design features, triggering a positive response from your customers.
+  btn:
+    link: /#
+    text: Try Free
+  reversed: false
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+  - /.cloudcannon/inputs/button.cloudcannon.inputs.yml
+_inputs:
+  title:
+    type: text
+  image_path:
+    type: image
+    label: Image
+    options:
+      width: 696
+      height: 752
+      resize_style: crop
+  reversed:
+    type: switch
+    label: Image on the left

@@ -1,0 +1,17 @@
+{{ define "main" }}
+{{- $rc := partial "rosey-content.html" . -}}
+<section class="privacy-hero">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="privacy-hero-content text-center">
+          <h1 data-editable="text" data-prop="hero.title"{{ if $rc }} data-rosey="hero_title"{{ end }}>{{.Params.hero.title}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<editable-component data-component="legal/sections" data-prop="privacy">
+{{ partial "legal/sections" .Params.privacy }}
+</editable-component>
+{{ end }}

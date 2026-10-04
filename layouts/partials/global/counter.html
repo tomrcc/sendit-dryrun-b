@@ -1,0 +1,38 @@
+{{- $rc := partial "rosey-content.html" page -}}
+<section{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}
+  class="counter-up {{ if .alternateStyle }}
+counter-up-two pb-xxl-14 pb-lg-13
+{{ end }}"
+  id="counter-up"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-header">
+          <h2><editable-text data-prop="title"{{ if $rc }} data-rosey="title"{{ end }}>{{.title}}</editable-text> <span data-editable="text" data-prop="title_suffix"{{ if $rc }} data-rosey="title_suffix"{{ end }}>{{.title_suffix}}</span></h2>
+          <p data-editable="text" data-type="text" data-prop="description"{{ if $rc }} data-rosey="description"{{ end }}>{{.description | markdownify}}</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="counter-up-wrapper d-grid" data-editable="array" data-prop="numbers">
+          {{ range .numbers }}
+          <div class="counter-up-content" data-editable="array-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}>
+            <div class="counter-up-content-item">
+              <div class="counter-percent">
+                {{ if .prefix }}
+                <span class="percent" data-editable="text" data-prop="prefix">{{.prefix}}</span>
+                {{ end }}
+                <span class="counter" data-editable="text" data-prop="number">{{.number}}</span>
+                {{ if .suffix }}
+                <span class="percent" data-editable="text" data-prop="suffix">{{.suffix}}</span>
+                {{ end }}
+              </div>
+              <p data-editable="text" data-prop="text"{{ if $rc }} data-rosey="text"{{ end }}>{{.text}}</p>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

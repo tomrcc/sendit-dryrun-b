@@ -1,0 +1,4 @@
+{{- /* The default-language label for a category, used everywhere a term is shown. */ -}}
+{{- $overrides := dict "seo" "SEO" -}}
+{{- $label := index $overrides (lower .) | default (humanize .) -}}
+{{- return $label -}}

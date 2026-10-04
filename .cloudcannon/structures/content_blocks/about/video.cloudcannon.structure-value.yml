@@ -1,0 +1,45 @@
+label: About Video
+description: About Video section
+icon: play_circle
+tags: []
+picker_preview:
+  text: [About Video]
+  icon: [play_circle]
+preview:
+  text:
+    - key: title
+    - About Video
+  subtext: [About Video]
+  icon: [play_circle]
+  image:
+    - key: video.image_path
+value:
+  _uuid:
+  _name: about/video
+  title: We love what we do
+  description: Our team has decades of experience working with email marketing campaigns and we’re passionate about helping you connect with your customers.
+  btn:
+    link: https://www.instagram.com/example
+    text: Follow on Linkedin
+  video:
+    image_path: /images/works/banner.jpg
+    link: https://vimeo.com/45830194
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+  - /.cloudcannon/inputs/button.cloudcannon.inputs.yml
+_inputs:
+  title:
+    type: text
+  video:
+    type: object
+    label: Video
+    options:
+      preview:
+        icon: smart_display
+  video.image_path:
+    type: image
+    label: Video thumbnail
+  video.link:
+    type: url
+    label: Video URL
+    comment: A Vimeo or YouTube link — opens in a popup

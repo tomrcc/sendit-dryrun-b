@@ -1,0 +1,45 @@
+{{/* Receives data/footer.yaml as `.` — also re-rendered in the Visual Editor as data-component="footer" */}}
+{{ with . }}
+<footer class="footer pt-xxl-19 pt-8 pb-sm-7 pb-5" id="footer" data-rosey-ns="footer">
+  <div class="container-fluid">
+    <div class="footer-wrapper">
+      <div class="row">
+        <div class="col-12 col-lg-4 me-auto order-2 order-lg-1">
+          <div class="footer-logo mt-7 mt-md-0">
+            <a href="{{.logo_url}}" class="">
+              <img src="{{.logo}}" alt="logo" data-editable="image" data-prop-src="logo" />
+            </a>
+            <p>
+              <span data-rosey="copyright_prefix">© Copyright</span> <span>{{ dateFormat "2006" now }}</span> <editable-text data-prop="copyright" data-rosey="copyright">{{.copyright}}</editable-text>
+            </p>
+          </div>
+          <div class="social-icon">
+            <ul class="list-unstyled" data-editable="array" data-prop="social">
+              {{ range .social }}
+              <li data-editable="array-item">
+                <a href="{{.link}}"> <i class="{{.icon}}"></i> </a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{/* Columns are siblings of the logo column in .row, so they can't be an array region: bound by index */}}
+        {{ range $i, $section := .sections }}
+        <div class="col-6 col-md-3 col-lg-2 order-1">
+          <div class="footer-widget">
+            <h3 class="" data-editable="text" data-prop="sections.{{ $i }}.title" data-rosey="{{ .title | urlize }}">{{.title}}</h3>
+            <ul class="list-unstyled" data-editable="array" data-prop="sections.{{ $i }}.links">
+              {{ range .links }}
+              <li data-editable="array-item">
+                <a href="{{.link}}"><editable-text data-prop="text" data-rosey="{{ .text | urlize }}">{{.text}}</editable-text></a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</footer>
+{{ end }}

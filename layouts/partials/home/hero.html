@@ -1,0 +1,29 @@
+{{- $rc := partial "rosey-content.html" page -}}
+<section{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }} class="hero-two">
+  <div class="hero-two-shape">
+    <img src="/images/hero/hero-two-shape.png" alt="shape" />
+  </div>
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="hero-two-content">
+          <h1 class="mb-4" data-editable="text" data-prop="title"{{ if $rc }} data-rosey="title"{{ end }}>{{.title}}</h1>
+          <p class="mb-7 w-xxl-80" data-editable="text" data-type="text" data-prop="description"{{ if $rc }} data-rosey="description"{{ end }}>{{.description | markdownify}}</p>
+          <div class="">
+            {{with .link}}
+            <a href="{{.url}}" class="btn btn-primary btn-lg"> <editable-text data-prop="link.text"{{ if $rc }} data-rosey="link_text"{{ end }}>{{.text}}</editable-text> </a>
+            {{end}}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-two-banner">
+          <img src="{{.image_path}}" alt="hero-two-images" data-editable="image" data-prop-src="image_path" />
+          <div class="hero-two-banner-shape">
+            <img src="/images/hero/hero-three-shape.png" alt="shape" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

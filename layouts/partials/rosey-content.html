@@ -1,0 +1,11 @@
+{{- /* Context: a page. True when that page's content should carry Rosey keys: no
+       non-default language has a content file for it. A page with a content_fr/ file
+       is translated as a file, and a Rosey value would overwrite Hugo's French.
+       Pages Hugo builds in every language without a file (404, taxonomy and term
+       pages) keep their keys in every language, so Rosey can translate them.
+       Component partials (whose context is block data) pass `page`. */ -}}
+{{- $hasFile := false -}}
+{{- range .AllTranslations -}}
+  {{- if and .File (ne .Language.Lang hugo.Sites.Default.Language.Lang) }}{{ $hasFile = true }}{{ end -}}
+{{- end -}}
+{{- return not $hasFile -}}

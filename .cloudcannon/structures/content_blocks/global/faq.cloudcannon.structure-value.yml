@@ -1,0 +1,32 @@
+label: FAQ
+description: FAQ section
+icon: checklist
+tags: []
+picker_preview:
+  text: [FAQ]
+  icon: [checklist]
+preview:
+  text:
+    - template: '{title} {title_suffix}'
+    - FAQ
+  subtext: [FAQ]
+  icon: [checklist]
+value:
+  _uuid:
+  _name: global/faq
+  title: Have
+  title_suffix: Questions?
+  description: We’re always here to help. Here are the most frequently asked questions.
+  faq:
+    - _uuid:
+      title: Is there a maximum numbers of emails I can send each month?
+      description: No, the prices include unlimited emails. Send to your heart’s content.
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+  - /.cloudcannon/inputs/heading.cloudcannon.inputs.yml
+_inputs:
+  faq:
+    type: array
+    label: Questions
+    options:
+      structures: _structures.faq_items

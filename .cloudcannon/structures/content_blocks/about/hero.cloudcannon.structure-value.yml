@@ -1,0 +1,38 @@
+label: About Hero
+description: About Hero section
+icon: apps
+tags: [hero]
+picker_preview:
+  text: [About Hero]
+  icon: [apps]
+preview:
+  text:
+    - key: title
+    - About Hero
+  subtext: [About Hero]
+  icon: [apps]
+  image:
+    - key: hero_images[0].image_path
+value:
+  _uuid:
+  _name: about/hero
+  title: On a mission to change email marketing
+  description: We’re here to breathe new air into email marketing and help grow your business.
+  hero_images:
+    - _uuid:
+      image_path: /images/about/aboutfeature-three.jpg
+      placer: front_bottom
+  link:
+    text: Try Free
+    url: /#
+_inputs_from_glob:
+  - /.cloudcannon/inputs/inline-markdown.cloudcannon.inputs.yml
+  - /.cloudcannon/inputs/button.cloudcannon.inputs.yml
+_inputs:
+  title:
+    type: text
+  hero_images:
+    type: array
+    label: Images
+    options:
+      structures: _structures.hero_images

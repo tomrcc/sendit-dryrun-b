@@ -1,0 +1,75 @@
+{{ define "main" }}
+{{- $rc := partial "rosey-content.html" . -}}
+
+<section class="blog-details">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-12">
+            <article class="blog-single">
+               <div class="inner-blog-details">
+                  <h2 class="w-xxl-70 w-xl-80 w-100" data-editable="text" data-prop="title"{{ if $rc }} data-rosey="title"{{ end }}>{{.Params.title}}</h2>
+                  <div class="inner-blog-details-meta">
+                     <ul class="list-unstyled">
+                        <li class="list-inline-item">
+                           <p>{{.Date | time.Format ":date_long"}}</p>
+                        </li>
+                        <li class="list-inline-item">
+                           <p data-editable="text" data-prop="author">{{.Params.author}}</p>
+                        </li>
+                        <li class="list-inline-item">
+                           <p>{{ .ReadingTime }} <span data-rosey-root="blog-post" data-rosey="minutes">minutes</span></p>
+                        </li>
+                        <li class="list-inline-item">
+                           <p>{{ .WordCount }} <span data-rosey-root="blog-post" data-rosey="words">words</span></p>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="rounded-box mb-xxl-11 mb-8">
+                  <img
+                     src="{{.Params.featuredImg.image_path}}"
+                     data-editable="image"
+                     data-prop-src="featuredImg.image_path"
+                     class="w-100"
+                     alt="featured-image"
+                  />
+               </div>
+               <div style="max-width: 900px; margin: 0 auto" data-editable="text" data-type="block" data-prop="@content"{{ if $rc }} data-rosey="body"{{ end }}>{{.Content}}</div>
+            </article>
+         </div>
+      </div>
+   </div>
+</section>
+
+<section class="blog-related position-relative">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="blog-section" data-rosey-root="blog-post">
+               <h2 class="blog-section-title" data-editable="text" data-prop="@data[blog-post].recent_heading" data-rosey="recent_heading">{{ (index hugo.Data "blog-post").recent_heading }}</h2>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         {{ range ( where site.RegularPages "Section" "blog" | first 3 ) }}
+         <div class="col-lg-4 col-md-6">
+            <article class="blog-post">
+               <div class="blog-post-thumb">
+                  <a href="{{.Permalink | relURL}}">
+                     <img src="{{.Params.thumbImg.image_path}}" alt="blog-thum" />
+                  </a>
+               </div>
+               <div class="blog-post-content">
+                  {{ partial "category-chips.html" . }}
+                  <div class="blog-post-title" data-rosey-root="">
+                     <a href="{{.Permalink | relURL}}"{{ if partial "rosey-content.html" . }} data-rosey="{{ strings.TrimPrefix "/" .Path }}:title"{{ end }}>{{.Params.title}}</a>
+                  </div>
+               </div>
+            </article>
+         </div>
+         {{ end }}
+      </div>
+   </div>
+</section>
+
+{{ end }}

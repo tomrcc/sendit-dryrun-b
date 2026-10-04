@@ -1,0 +1,38 @@
+{{- $rc := partial "rosey-content.html" page -}}
+<section{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }} class="testimonial">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8 mx-auto text-center mb-5">
+        <div class="testimonial-content">
+          <h2><editable-text data-prop="title"{{ if $rc }} data-rosey="title"{{ end }}>{{.title}}</editable-text> <span data-editable="text" data-prop="title_suffix"{{ if $rc }} data-rosey="title_suffix"{{ end }}> {{.title_suffix}}</span></h2>
+          <p data-editable="text" data-type="text" data-prop="description"{{ if $rc }} data-rosey="description"{{ end }}>{{.description | markdownify}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row" data-editable="array" data-prop="slider">
+      {{ range .slider }}
+      <div class="col-lg-4 col-md-6 mb-5" data-editable="array-item"{{ if $rc }} data-rosey-ns="{{ ._uuid }}"{{ end }}>
+        <div class="testimonial-item">
+          <div class="testimonial-item-person">
+            <div class="thumb">
+              <img
+                src="{{.image_path}}"
+                data-editable="image"
+                data-prop-src="image_path"
+                alt="logo"
+                class="img-fluid"
+                loading="lazy"
+              />
+            </div>
+            <div class="content">
+              <h3 data-editable="text" data-prop="author">{{.author}}</h3>
+              <p data-editable="text" data-prop="designation"{{ if $rc }} data-rosey="designation"{{ end }}>{{.designation}}</p>
+            </div>
+          </div>
+          <p data-editable="text" data-prop="message"{{ if $rc }} data-rosey="message"{{ end }}>{{.message}}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>

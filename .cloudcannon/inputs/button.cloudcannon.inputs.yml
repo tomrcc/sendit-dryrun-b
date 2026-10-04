@@ -1,0 +1,25 @@
+# Button objects: `btn: { link, text }` and `link: { url, text }`
+btn:
+  type: object
+  label: Button
+  options:
+    preview:
+      icon: ads_click
+btn.link:
+  type: url
+  label: Button link
+btn.text:
+  type: text
+  label: Button text
+link:
+  type: object
+  label: Button
+  options:
+    preview:
+      icon: ads_click
+link.url:
+  type: url
+  label: Button link
+link.text:
+  type: text
+  label: Button text

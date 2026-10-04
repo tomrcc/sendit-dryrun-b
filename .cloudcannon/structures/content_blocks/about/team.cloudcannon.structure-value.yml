@@ -1,0 +1,30 @@
+label: About Team
+description: About Team section
+icon: groups
+tags: []
+picker_preview:
+  text: [About Team]
+  icon: [groups]
+preview:
+  text:
+    - key: title
+    - About Team
+  subtext: [About Team]
+  icon: [groups]
+value:
+  _uuid:
+  _name: about/team
+  title: Our leadership
+  team_members:
+    - _uuid:
+      name: Pete Fish
+      designation: Co-Founder & CEO
+      image_path: /images/team/1.jpg
+_inputs:
+  title:
+    type: text
+  team_members:
+    type: array
+    label: Team members
+    options:
+      structures: _structures.team_members
